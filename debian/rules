@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+# Uncomment this to turn on verbose mode.
+#DH_VERBOSE = 1
+
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
+
+binary:
+	dh_testroot
+	dh_prep
+	dh_auto_install
+	mkdir -p debian/tmp/lib/firmware debian/tmp/usr/bin debian/tmp/usr/share/man/man1
+	cp senoko.hex debian/tmp/lib/firmware
+	cp update-senoko debian/tmp/usr/bin
+	cp update-senoko.1 debian/tmp/usr/share/man/man1
+	dh_install
+	dh_installdocs
+	dh_installchangelogs
+	dh_perl
+	dh_link
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+%:
+	dh $@ 
+

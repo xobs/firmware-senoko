@@ -1,0 +1,8 @@
+/debian/files
+/debian/firmware-senoko.debhelper.log
+/debian/firmware-senoko.substvars
+/debian/firmware-senoko/
+/debian/tmp/
+*.swp
+*.swo
+*~

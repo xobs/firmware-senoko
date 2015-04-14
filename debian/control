@@ -1,0 +1,14 @@
+Source: firmware-senoko
+Section: kernel
+Priority: optional
+Maintainer: Sean Cross <xobs@kosagi.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://kosagi.com/
+
+Package: firmware-senoko
+Architecture: all
+Depends: ${misc:Depends}, stm32flash (>= 0.4)
+Description: Firmware for Senoko battery/passthru board
+ Contains the firmware for the Senoko battery board, along with a script to
+ update the firmware.

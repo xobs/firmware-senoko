@@ -1,0 +1,35 @@
+.TH UPDATE-SENOKO 1 "14 Apr 2015" Novena "Linux System Administration"
+.SH NAME
+update-senoko \- update the firmware on a Senoko battery/passthru board
+.SH SYNOPSIS
+.B update-senoko
+.RB [\| \-p\ serial\ port \|]
+.RB [\| \-b\ baud\ rate \|]
+.RB [\| \-f\ firmware\ file \|]
+
+.SH DESCRIPTION
+.LP
+The Senoko battery/passthru board contains an STM32.  It is wired to the
+mainboard via a serial port, and supports the standard STM32 protocol for
+programming the part.
+.B update-senoko
+wraps the
+.B stm32flash
+program to instruct the user to hold the
+.I Reflash
+button to begin the update procedure.
+.SH OPTIONS
+.TP
+.B \-p \-\-port
+Specify the serial port.  Defaults to
+.I /dev/ttymxc3
+.TP
+.B \-f \-\-firmware
+Specify a firmware, overriding the default 
+.I senoko.hex
+file shipped with the package.
+.TP
+.B \-b \-\-baud
+Specify a baudrate other than the default 115200.
+.SH AUTHORS
+Written by Sean Cross <xobs@kosagi.com>

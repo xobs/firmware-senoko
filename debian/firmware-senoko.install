@@ -1,0 +1,3 @@
+lib/firmware/senoko.hex
+usr/bin/update-senoko
+usr/share/man/man1/update-senoko.1

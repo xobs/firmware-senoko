@@ -1,0 +1,79 @@
+#!/bin/sh
+fw=/lib/firmware/senoko.hex
+port=/dev/ttymxc3
+baud=115200
+
+print_help() {
+	echo "Senoko firmware updater"
+	echo ""
+	echo "Usage:"
+	echo "    update-senoko [-p port] [-b baud] [-f firmware] [-h]"
+	echo ""
+	echo "Options:"
+	echo "    -p  --port     Serial port to use.  Defaults to ${port}."
+	echo "    -b  --baud     Default baudrate.  Defaults to ${baud}."
+	echo "    -f  --firmware Firmware file to use.  Defaults to ${fw}."
+	echo "    -h  --help     Print this help text."
+	echo ""
+	echo "You will need to hold down the 'Reflash' button on Senoko."
+	exit 0
+}
+
+args=`getopt -o hp:b:f: --long help,port:,baud:,firmware: \
+          -n 'update-senoko' -- "$@"`
+if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+eval set -- "$args"
+
+while true ; do
+	case "$1" in
+		-h|--help) print_help ; exit 0 ;;
+		-p|--port) port="$2" ; shift 2 ;;
+		-b|--baud) baud="$2" ; shift 2 ;;
+		-f|--firmware) fw="$2" ; shift 2 ;;
+		--) shift ; break ;;
+		*) echo "Internal error!" ; exit 1 ;;
+	esac
+done
+
+if [ ! -e "${fw}" ]
+then
+	echo "Error: Unable to find firmware file ${fw}"
+	exit 2
+fi
+
+if [ ! -e "${port}" ]
+then
+	echo "Error: Invalid serial port ${port}"
+	exit 3
+fi
+
+echo "Enabling Senoko reset lines..."
+sudo chmod a+rw /dev/ttymxc3
+echo 149 | sudo tee /sys/class/gpio/export 2> /dev/null
+echo out | sudo tee /sys/class/gpio/gpio149/direction 2> /dev/null
+
+sudo chmod a+rw /sys/class/gpio/gpio149/value
+echo 1 > /sys/class/gpio/gpio149/value
+
+while true
+do
+	echo 0 > /sys/class/gpio/gpio149/value
+	echo 1 > /sys/class/gpio/gpio149/value
+
+	echo "Hold down the 'Reflash' button on your Senoko battery board..."
+	if stm32flash -w "${fw}" -b "${baud}" "${port}"
+	then
+		echo "Release the 'Reflash' button"
+		break
+	fi
+done
+
+# Wait for the board to show up on I2C
+while ! /usr/sbin/i2cget -f -y 0 0x20 0 2> /dev/null > /dev/null
+do
+	echo 0 > /sys/class/gpio/gpio149/value
+	echo 1 > /sys/class/gpio/gpio149/value
+done
+
+echo "Senoko has been updated"
