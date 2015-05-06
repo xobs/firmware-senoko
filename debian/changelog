@@ -1,3 +1,9 @@
+firmware-senoko (2.2-r2) unstable; urgency=medium
+
+  * Update documentation to include information on flashing the Senoko. 
+
+ -- Michael Fincham <michael.fincham@catalyst.net.nz>  Wed, 06 May 2015 16:04:54 +1200
+
 firmware-senoko (2.2-r1) unstable; urgency=medium
 
   * Improve low-battery support
