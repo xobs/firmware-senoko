@@ -1,3 +1,9 @@
+firmware-senoko (2.3-r1) unstable; urgency=medium
+
+  * Fix bug where i2c would lock out the bus
+
+ -- Sean Cross <xobs@kosagi.com>  Thu, 13 Aug 2015 11:12:46 +0800
+
 firmware-senoko (2.2-r1) unstable; urgency=medium
 
   * Improve low-battery support
