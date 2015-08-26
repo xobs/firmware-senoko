@@ -2,7 +2,21 @@
 set -e
 
 if [ "$1" = configure ] ; then
-	update-senoko
+	# Senoko firmware version is stored in registers 0x01 and 0x02.
+	# Concatenate these together to produce a version number that we can
+	# use to determine if firmware needs to be updated.
+	fwver=$(($(/usr/sbin/i2cget -f -y 0 0x20 0x1) * 256 + $(/usr/sbin/i2cget -f -y 0 0x20 0x2)))
+	if [ ${fwver} -lt 515 ]
+	then
+		if whiptail --yesno --title "Update Senoko Battery Board" "Senoko battery firmware needs updating.  Are you plugged in to AC power?" 10 60
+		then
+			update-senoko
+		else
+			whiptail --msgbox --title "Update Senoko Battery Board" "Older firmware can cause problems with I2C.  Until you update, your system clock and battery status may not function properly.\n\nPlease run 'update-senoko' when you are connected to AC." 10 70
+		fi
+	else
+		echo "Firmware already up to date"
+	fi
 fi
 #DEBHELPER#
 exit 0
