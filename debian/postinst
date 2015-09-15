@@ -2,6 +2,12 @@
 set -e
 
 if [ "$1" = configure ] ; then
+	# Only update boards that should have Senokos
+	if ! novena-eeprom | grep -q senoko
+	then
+		exit 0
+	fi
+
 	# Senoko firmware version is stored in registers 0x01 and 0x02.
 	# Concatenate these together to produce a version number that we can
 	# use to determine if firmware needs to be updated.
