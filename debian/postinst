@@ -8,11 +8,11 @@ if [ "$1" = configure ] ; then
 	fwver=$(($(/usr/sbin/i2cget -f -y 0 0x20 0x1) * 256 + $(/usr/sbin/i2cget -f -y 0 0x20 0x2)))
 	if [ ${fwver} -lt 515 ]
 	then
-		if whiptail --yesno --title "Update Senoko Battery Board" "Senoko battery firmware needs updating.  Are you plugged in to AC power?" 10 60
+		if whiptail --yesno "Update Senoko Battery Board" "Senoko battery firmware needs updating.  Are you plugged in to AC power?" 10 60
 		then
 			update-senoko
 		else
-			whiptail --msgbox --title "Update Senoko Battery Board" "Older firmware can cause problems with I2C.  Until you update, your system clock and battery status may not function properly.\n\nPlease run 'update-senoko' when you are connected to AC." 10 70
+			whiptail --msgbox "Update Senoko Battery Board" "Older firmware can cause problems with I2C.  Until you update, your system clock and battery status may not function properly.\n\nPlease run 'update-senoko' when you are connected to AC." 10 70
 		fi
 	else
 		echo "Firmware already up to date"
