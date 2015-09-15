@@ -1,3 +1,10 @@
+firmware-senoko (2.3.2-r1) unstable; urgency=medium
+
+  * Fix whiptail patch from russm
+  * Build 2.3.2 rather than 2.3-r4 to fix source packaging.
+
+ -- Sean Cross <xobs@kosagi.com>  Tue, 15 Sep 2015 16:16:04 +0800
+
 firmware-senoko (2.3-r3) unstable; urgency=medium
 
   * Apply whiptail patch from russm
