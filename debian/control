@@ -8,7 +8,7 @@ Homepage: http://kosagi.com/
 
 Package: firmware-senoko
 Architecture: all
-Depends: ${misc:Depends}, stm32flash (>= 0.4)
+Depends: ${misc:Depends}, stm32flash (>= 0.4), i2c-tools
 Description: Firmware for Senoko battery/passthru board
  Contains the firmware for the Senoko battery board, along with a script to
  update the firmware.
