@@ -48,12 +48,17 @@ then
 	exit 3
 fi
 
-echo "Enabling Senoko reset lines..."
-sudo chmod a+rw /dev/ttymxc3
-echo 149 | sudo tee /sys/class/gpio/export 2> /dev/null
-echo out | sudo tee /sys/class/gpio/gpio149/direction 2> /dev/null
+if [ "${UID}" != "0" ]; then
+	echo "Error: Need root privilege"
+	exit 4
+fi
 
-sudo chmod a+rw /sys/class/gpio/gpio149/value
+echo "Enabling Senoko reset lines..."
+chmod a+rw /dev/ttymxc3
+echo 149 | tee /sys/class/gpio/export 2> /dev/null
+echo out | tee /sys/class/gpio/gpio149/direction 2> /dev/null
+
+chmod a+rw /sys/class/gpio/gpio149/value
 echo 1 > /sys/class/gpio/gpio149/value
 
 while true
