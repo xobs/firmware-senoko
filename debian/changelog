@@ -1,3 +1,12 @@
+firmware-senoko (2.4-r1) unstable; urgency=medium
+
+  * slower MCU clock, to save power
+  * more conservative battery values
+  * trying to improve reboot power state
+  * fix crash on i2c unblock process
+
+ -- Sean Cross <xobs@kosagi.com>  Wed, 24 Feb 2016 04:00:51 +0800
+
 firmware-senoko (2.3-r3) unstable; urgency=medium
 
   * Apply whiptail patch from russm
