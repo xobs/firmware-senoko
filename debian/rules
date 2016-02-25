@@ -9,8 +9,9 @@ binary:
 	dh_testroot
 	dh_prep
 	dh_auto_install
-	mkdir -p debian/tmp/lib/firmware debian/tmp/usr/bin debian/tmp/usr/share/man/man1
+	mkdir -p debian/tmp/lib/firmware debian/tmp/usr/bin debian/tmp/usr/share/man/man1 debian/tmp/usr/share/firmware-senoko
 	cp senoko.hex debian/tmp/lib/firmware
+	cp senoko.elf debian/tmp/usr/share/firmware-senoko
 	cp update-senoko debian/tmp/usr/bin
 	cp update-senoko.1 debian/tmp/usr/share/man/man1
 	dh_install
