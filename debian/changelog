@@ -1,3 +1,9 @@
+firmware-senoko (2.5-r1) unstable; urgency=medium
+
+  * More reliable undervoltage values.
+
+ -- Sean Cross <xobs@kosagi.com>  Thu, 25 Feb 2016 14:32:05 +0800
+
 firmware-senoko (2.4-r1) unstable; urgency=medium
 
   * slower MCU clock, to save power
