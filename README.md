@@ -21,4 +21,4 @@ After the resulting .deb package has been installed the firmware still needs to 
 
 To prevent malicious alteration of the firmware during normal operation the physical "reflash" button on the Senoko must be held down during firmware updates.
 
-Running `update-senoko` at the command line will guide you through the flashing process, including obtaining root access as necessary.
+Running `update-senoko` as root at the command line will guide you through the flashing process.
